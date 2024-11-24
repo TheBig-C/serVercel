@@ -61,3 +61,7 @@ from flask import Response as BaseResponse
 from werkzeug.wrappers.response import Response
 BaseResponse.autocorrect_location_header = False
 app.response_class = Response
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Usa el puerto proporcionado por Railway o 5000 como predeterminado
+    app.run(host="0.0.0.0", port=port)
