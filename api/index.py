@@ -4,7 +4,7 @@ import numpy as np
 
 # Rutas de los modelos
 CROP_MODEL = 'models/crop_model.pickle'
-DROUGHT_MODEL = 'models/drought_model.pickle'
+DROUGHT_MODEL = 'models/drought_model.pkl'
 FLOOD_MODEL = 'models/flood_model.pkl'
 GRADIENT_BOOST_MODEL = 'models/gradient_boost_model.pkl'
 
