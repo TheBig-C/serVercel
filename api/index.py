@@ -32,12 +32,10 @@ def procesar_prediccion(model_path, model_name):
         datos = request.json  # Leer datos JSON
         if 'input' not in datos:
             raise ValueError("El campo 'input' no está en los datos enviados.")
-        input_data = datos['input']
-        input_data = np.array(input_data).reshape(1, -1)
-        if model_name=="Crop":
-
-            input_data = np.array([datos['input']])  # Convertir a NumPy
         
+        # Convertir los datos a NumPy y asegurarse de que sean 2D
+        input_data = np.array(datos['input'], dtype=float).reshape(1, -1)
+
         # Cargar el modelo
         loaded_model = pickle.load(open(model_path, 'rb'))
         
@@ -45,10 +43,12 @@ def procesar_prediccion(model_path, model_name):
         if hasattr(loaded_model, 'predict_proba'):
             prediction_probabilities = loaded_model.predict_proba(input_data)
             classes = loaded_model.classes_
-            result = {class_name: float(prediction_probabilities[0][i]) for i, class_name in enumerate(classes)}
+            # Convertir resultados a tipos nativos de Python
+            result = {str(class_name): float(prediction_probabilities[0][i]) for i, class_name in enumerate(classes)}
         else:
             prediction = loaded_model.predict(input_data)
-            result = {"prediction": prediction.tolist()}
+            # Convertir predicción a lista de tipos nativos
+            result = {"prediction": [int(p) if isinstance(p, np.integer) else float(p) for p in prediction]}
         
         return jsonify(result)
 
