@@ -33,7 +33,7 @@ def procesar_prediccion(model_path, model_name):
         if 'input' not in datos:
             raise ValueError("El campo 'input' no está en los datos enviados.")
         
-        input_data = np.array([datos['input']])  # Convertir a NumPy
+        #input_data = np.array([datos['input']])  # Convertir a NumPy
         
         # Cargar el modelo
         loaded_model = pickle.load(open(model_path, 'rb'))
