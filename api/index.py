@@ -33,7 +33,7 @@ def procesar_prediccion(model_path, model_name):
         if 'input' not in datos:
             raise ValueError("El campo 'input' no está en los datos enviados.")
         input_data = datos['input']
-        input_data = input_data.reshape(1, -1)  # Asegurar que sea 2D
+        input_data = np.array(input_data).reshape(1, -1)
         if model_name=="Crop":
 
             input_data = np.array([datos['input']])  # Convertir a NumPy
